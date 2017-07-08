@@ -1,4 +1,6 @@
-HANGMAN
+Hangman
+
+This is an interactive Hangman game created by Jesse and Zoey. 
 
 
 Synopsis

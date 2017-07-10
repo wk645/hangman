@@ -2,7 +2,7 @@ require 'pry'
 
 class Game
 
-WORDS = ["abstract", "water", "turing", "glasses", "ribald"]
+WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid", "gazebo", "klutz", "ostracize", "phlegm", "yacht", "squawk", "quip", "matrix", "astoria", "brooklyn"]
 
 	def initialize
 		@turns = 7
@@ -22,7 +22,7 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald"]
 		puts "You currentlty have #{@wins} wins and #{@losses} losses. Would you like to play? y/n"
 		user_response = gets.chomp
 		if user_response == "y"
-			puts "Great!"
+			puts "Great! If you would like to exit the game at any time, type exit and press enter."
 			@turns = 7
 			display_word
 		elsif user_response == "n"
@@ -49,7 +49,13 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald"]
 	end
 
 	def correct_guess?
-		if guess_correctly?
+		if @guess.split(//).sort == @word.sort
+			puts "You win! The word is '#{@word.join}'."
+			@wins +=1
+			@correct_guess.clear
+			play?
+
+		elsif guess_correctly?
 			indexes = @word.each_index.select { |i| @word[i] == @guess}
 			indexes = indexes.map {|i| i + 1}
 			indexes.size.times do
@@ -63,7 +69,7 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald"]
 	end
 
 	def won_or_lost?
-		if @word.sort == @correct_guess.sort
+		if @word.sort.uniq == @correct_guess.sort.uniq
 			puts "You win! The word is '#{@word.join}'."
 			@wins +=1
 			@correct_guess.clear

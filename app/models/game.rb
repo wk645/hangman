@@ -5,11 +5,20 @@ class Game
 WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid", "gazebo", "klutz", "ostracize", "phlegm", "yacht", "squawk", "quip", "matrix", "astoria", "brooklyn"]
 
 	def initialize
-		@turns = 7
+		@turns = 6
 		@correct_guess = []
 		@user = User.new
 		@wins = @user.wins
 		@losses = @user.losses
+		@hangman_array = [
+		"+---+-",
+	 	"|   |",
+	 	"|   0",
+	 	"|  /|\\",
+	 	"|   /\\",
+	 	"|      ",
+	 	"+---+-"
+		]
 	end
 
 	def greeting
@@ -19,11 +28,11 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid
 	end
 		
 	def play?
-		puts "You currentlty have #{@wins} wins and #{@losses} losses. Would you like to play? y/n"
+		puts "You currently have #{@wins} wins and #{@losses} losses. Would you like to play? y/n"
 		user_response = gets.chomp
 		if user_response == "y"
 			puts "Great! If you would like to exit the game at any time, type exit and press enter."
-			@turns = 7
+			@turns = 6
 			display_word
 		elsif user_response == "n"
 			puts "OK, goodbbye!"
@@ -65,7 +74,12 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid
 		else
 			@turns -= 1
 			puts "You did not guess correctly. You have #{@turns} turn(s) remaining."
+			display_hangman
 		end
+	end
+
+	def display_hangman
+		(0..(6 - @turns)).to_a.each{|line_number| puts @hangman_array[line_number]}
 	end
 
 	def won_or_lost?

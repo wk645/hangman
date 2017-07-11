@@ -8,6 +8,8 @@ class Game
 		@user = User.new
 		@wins = @user.wins
 		@losses = @user.losses
+		@words = Word.new
+		@hangman = Hangman.new
 	end
 
 	def greeting
@@ -33,7 +35,7 @@ class Game
 	end
 
 	def display_word
-		@word = Word.all.sample.split(//)
+		@word = @words.all.sample.split(//)
 		puts "Your word is #{@word.length} letters long."
 	end
 
@@ -49,6 +51,10 @@ class Game
 		end
 	end
 
+	def guess_correctly?
+		@word.include?(@guess) || @word == @guess.split(//)
+	end
+
 	def print_word
 		@word.each_with_index do |l, i|
 			if @correct_guess.include?(l)
@@ -57,14 +63,6 @@ class Game
 				print "  "
 			end
 		end
-	end
-
-	def display_hangman
-		(0..(7 - @turns)).to_a.each{|line_number| puts Hangman.all[line_number]}
-	end
-
-	def guess_correctly?
-		@word.include?(@guess) || @word == @guess.split(//)
 	end
 
 	def whole_word_correct?
@@ -90,6 +88,10 @@ class Game
             display_hangman
         end
     end
+
+    def display_hangman
+		(0..(7 - @turns)).to_a.each{|line_number| puts @hangman.all[line_number]}
+	end
 
     def won?
         if @word.sort.uniq == @correct_guess.sort.uniq

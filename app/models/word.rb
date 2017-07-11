@@ -35,7 +35,7 @@ class Word
 		"vodka"
 	]
 
-	def self.all
+	def all
 		@@all
 	end
 

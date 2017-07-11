@@ -10,7 +10,7 @@ class Hangman
 		 	"|      ",
 		 	"+---+-"
 			]
-	def self.all
+	def all
 		@@hangman_array
 	end
 

@@ -2,10 +2,10 @@ require 'pry'
 
 class Game
 
-WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid", "gazebo", "klutz", "ostracize", "phlegm", "yacht", "squawk", "quip", "matrix", "astoria", "brooklyn"]
+# WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid", "gazebo", "klutz", "ostracize", "phlegm", "yacht", "squawk", "quip", "matrix", "astoria", "brooklyn"]
 
 	def initialize
-		@turns = 6
+		@turns = 7
 		@correct_guess = []
 		@user = User.new
 		@wins = @user.wins
@@ -15,6 +15,7 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid
 	 	"|   |",
 	 	"|   0",
 	 	"|  /|\\",
+	 	"|   |  ",
 	 	"|   /\\",
 	 	"|      ",
 	 	"+---+-"
@@ -32,7 +33,7 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid
 		user_response = gets.chomp
 		if user_response == "y"
 			puts "Great! If you would like to exit the game at any time, type exit and press enter."
-			@turns = 6
+			@turns = 7
 			display_word
 		elsif user_response == "n"
 			puts "OK, goodbbye!"
@@ -44,7 +45,7 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid
 	end
 
 	def display_word
-		@word = WORDS.sample.split(//)
+		@word = Word.all.sample.split(//)
 		puts "Your word is #{@word.length} letters long."
 	end
 
@@ -79,7 +80,7 @@ WORDS = ["abstract", "water", "turing", "glasses", "ribald", "bagpipes", "fervid
 	end
 
 	def display_hangman
-		(0..(6 - @turns)).to_a.each{|line_number| puts @hangman_array[line_number]}
+		(0..(7 - @turns)).to_a.each{|line_number| puts @hangman_array[line_number]}
 	end
 
 	def won_or_lost?

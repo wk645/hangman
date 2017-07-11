@@ -8,16 +8,6 @@ class Game
 		@user = User.new
 		@wins = @user.wins
 		@losses = @user.losses
-		@hangman_array = [
-		"+---+-",
-	 	"|   |",
-	 	"|   0",
-	 	"|  /|\\",
-	 	"|   |  ",
-	 	"|   /\\",
-	 	"|      ",
-	 	"+---+-"
-		]
 	end
 
 	def greeting
@@ -70,7 +60,7 @@ class Game
 	end
 
 	def display_hangman
-		(0..(7 - @turns)).to_a.each{|line_number| puts @hangman_array[line_number]}
+		(0..(7 - @turns)).to_a.each{|line_number| puts Hangman.all[line_number]}
 	end
 
 	def guess_correctly?
